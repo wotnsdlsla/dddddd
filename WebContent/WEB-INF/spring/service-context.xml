@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+	     ">
+
+	
+	
+
+
+	<!--mybatis -->
+	<bean name="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<property name="url"
+			value="jdbc:sqlserver://dev.newlecture.com:1433;databaseName=newlecture3" />
+		<property name="username" value="jsp" />
+		<property name="password" value="dclass" />
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:com/suwon/web/dao/mapper/*.xml" />
+	</bean>
+
+	<bean name="noticeDao" class="com.suwon.web.dao.mybatis.MyBatisNoticeDao">
+		<property name="session" ref="sqlSession"></property>
+	</bean>
+	<bean name="noticeFileDao" class="com.suwon.web.dao.mybatis.MyBatisNoticeFileDao">
+		<property name="session" ref="sqlSession"></property>
+	</bean>
+	<bean name="memberDao" class="com.suwon.web.dao.mybatis.MyBatisMemberDao">
+		<property name="session" ref="sqlSession"></property>
+	</bean>
+	<!-- tiles -->
+
+	<!-- ? -->
+	
+</beans>
+<!-- <bean id="a" class="com.newlecture.wdb.A" /> A a =new A(); ID 는 중복이 
+	안됨 NAME은 중복 가능 -->
+<!-- <bean id="b" class="com.newlecture.wdb.B" > <bean id="a" class="com.newlecture.wdb.A" 
+	/> <property name ="b" value="" ref="b"></property> </bean> setB이지만 b로 위장 
+	A a =new A(); ID 는 중복이 안됨 NAME은 중복 가능 -->
+<!-- <bean id="n" class="com.newlecture.wdb.notice" > <bean id="a" class="com.newlecture.wdb.A" 
+	/> <property name ="title" value="hello"></property> </bean> -->

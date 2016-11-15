@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd
+		    ">
+	<http auto-config="true">
+		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/teacher/**" access="ROLE_TEACHER" />
+		<!-- <http-basic/> -->
+		<form-login
+		login-page="/joinus/login"
+		default-target-url="/index"
+		/>
+	</http>
+
+	<authentication-manager>
+		<authentication-provider>
+		<user-service>
+		<user name="newD" password="111" authorities="ROLE_USER,ROLE_ADMIN,ROLE_TEACHER"></user>
+			</user-service>
+			<!-- 3가지방법 여기서 직접 선언, DB유저목록 , 윈도우 유저-->
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>
+<!-- <bean id="a" class="com.newlecture.wdb.A" /> A a =new A(); ID 는 중복이 
+	안됨 NAME은 중복 가능 -->
+<!-- <bean id="b" class="com.newlecture.wdb.B" > <bean id="a" class="com.newlecture.wdb.A" 
+	/> <property name ="b" value="" ref="b"></property> </bean> setB이지만 b로 위장 
+	A a =new A(); ID 는 중복이 안됨 NAME은 중복 가능 -->
+<!-- <bean id="n" class="com.newlecture.wdb.notice" > <bean id="a" class="com.newlecture.wdb.A" 
+	/> <property name ="title" value="hello"></property> </bean> -->
